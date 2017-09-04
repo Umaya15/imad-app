@@ -89,6 +89,7 @@ function createTemplate(data){
 return htmlTemplate;
 }
 
+var articleName = req.param.articleName;
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
