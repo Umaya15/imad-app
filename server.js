@@ -122,7 +122,7 @@ app.get('/submit-name/:name', function(req,res){
   //JSON: Javascript Object Notation
   res.send(JSON.stringify(names));
   
-};
+});
 
 app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));
