@@ -27,10 +27,11 @@ request.send(null);
 
 //code for server request (AJAX)
 var nameInput = document.getElementById('name');
-var iname = nameInput.value;
+
 var submit = document.getElementById('submit_btn');
 submit.onclick = function(){
      // Create a request object
+    var iname = nameInput.value;
     var request = new XMLHttpRequest();
     
     // capture the response and store it in a variable
