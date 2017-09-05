@@ -1,5 +1,4 @@
 console.log('Loaded!');
-consolte.log(counter.getString());
 
 //counter code
 var button = document.getElementById('counter');
@@ -13,7 +12,7 @@ button.onclick = function (){
     console.log(counter.toString());
     var span = document.getElementById('count');
     span.innerHTML = counter.toString();
-} 
+} ;
 
 /*
 // change text content
