@@ -1,5 +1,19 @@
 console.log('Loaded!');
 
+//counter code
+var button = document.getElementById('counter');
+button.onclick = function (){
+    // Make a request to the counter endpoint
+    
+    // capture the response and store it in a variable
+    
+    //render the variable in the correct span
+    counter = counter + 1;
+    var span = docment.getElementbyId('count');
+    span.innerHTML = counter.toString();
+} 
+
+/*
 // change text content
 var element = document.getElementById('main-text');
 element.innerHTML = "This is Amazing!";
@@ -15,3 +29,4 @@ img.onclick = function (){
     var interval = setInterval(moveRight, 50);
   img.style.marginLeft = '100px';  
 };
+*/
