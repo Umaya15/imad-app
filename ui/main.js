@@ -51,7 +51,7 @@ submit.onclick = function(){
             }
         }
     }
-    request.open('GET','http://iravalvizhigal.imad.hasura-app.io/submit-name?iname='+ iname, true);
+    request.open('GET','http://iravalvizhigal.imad.hasura-app.io/submit-name?name='+ iname, true);
     request.send(null);
 };
 
