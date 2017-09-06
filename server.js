@@ -7,9 +7,9 @@ var pool = require('pg'.pool);
 var config = {
     user: 'iravalvizhigal',
     host: 'db.imad.hasura-app.io',
-    database: 'iravalvizhigal'
-    password: process.env.DB_PASSWORD,
-    host: 5432
+    port: '5432',
+    database: 'iravalvizhigal',
+    password: process.env.DB_PASSWORD
 };
 
 var app = express();
@@ -106,19 +106,20 @@ app.get('/', function (req, res) {
 
 var pool = new Pool(config);
 
-app.get('/test-db', function(req,res){
+app.get('/test-db', function (req, res){
    // Connect to a db
    // Make  request to the db.
-    poo.query('SELECT * FROM "User"', function(err, result){
+    pool.query('SELECT * FROM articles', function(err, result){
         if (err) {
-            res.status(500).send(err,toString());
-        } else{
-        res.send(JSON.stringify(result));    
+            //res.status(500).send(err,toString());
+        alert('Error!');
+                    } else{
+        res.send(JSON.stringify(result.rows));    
         }
         }
-    });
-    
 });
+    
+
 
 var counter = 0;
 app.get('/counter', function(req,res){
