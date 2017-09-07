@@ -128,9 +128,9 @@ function hash(input)
 }
 
 app.get('/hash/:input', function(req, res){
-    var hashedString = hash(req.params.input, "this-is-a-random-string");
+    var hashedString = hash(req.params.input, 'this-is-a-random-string');
     res.send(hashedString);
-})
+});
   
 app.get('/articles/:articleName', function(req, res){
     var articleName = req.params.articleName;
