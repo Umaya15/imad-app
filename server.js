@@ -3,6 +3,7 @@ var morgan = require('morgan');
 var path = require('path');
 var Pool = require('pg').Pool;
 var crypto = require('crypto');
+var bodyParser = require('body-parser');
 
 var config = {
     user: 'iravalvizhigal',
@@ -14,6 +15,7 @@ var config = {
 
 var app = express();
 app.use(morgan('combined'));
+app.use(bodyParser.json());
 
 var articles = {
         'article-one':{
@@ -106,7 +108,6 @@ app.get('/', function (req, res) {
 
 var pool = new Pool(config);
 
-
 app.get('/test-db', function (req, res){
    // Connect to a db
    // Make  request to the db.
@@ -120,8 +121,7 @@ app.get('/test-db', function (req, res){
     });
 });
 
-function hash(input, salt)
-{
+function hash(input, salt){
     // how to hash
     var hashed = crypto.pbkdf2Sync(input, salt, 10000, 512, 'sha512');
     return hashed.toString('hex');
@@ -131,7 +131,25 @@ app.get('/hash/:input', function(req, res){
     var hashedString = hash(req.params.input, 'this-is-a-random-string');
     res.send(hashedString);
 });
-  
+
+app.post('/create-user', function(req, res){
+
+var username = req.body.username;
+var name = req.body.name;
+var email = req.body.email;
+var passwoord = req.body.password;
+
+var salt = crypto.getRamdomBytes(128).toString('hex');
+   var dbString = hash(password, salt); 
+   pool.query('INSERT INTO "User" (username, name, email, password) VALUES ($1, $2, $3, $4)' [username, name, email, dbString], function (err, result){
+       if (err) {
+           res.status(500).send(err.toString());
+       } else {
+           res.send('User successfully create : ' + username);
+       }
+   });
+});
+
 app.get('/articles/:articleName', function(req, res){
     var articleName = req.params.articleName;
     
@@ -179,8 +197,6 @@ app.get('/ui/style.css', function (req, res) {
 app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
-
-
 
 app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));
