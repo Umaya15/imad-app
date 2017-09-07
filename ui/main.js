@@ -74,7 +74,7 @@ submitl.onclick = function(){
     console.log(pwd);
     request.open('POST', 'http://iravalvizhigal.imad.hasura-app.io/login', true);
     request.setRequestHeader('Content-Type', 'application/json');
-    request.send(JSON.stringify({username: username, password: password}));
+    request.send(JSON.stringify({username: usrnm, password: pwd}));
     };
 
 /*
