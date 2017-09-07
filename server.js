@@ -172,6 +172,10 @@ app.post('/login', function(req, res){
                     var salt = dbString.split('$')[2];
                     var hashedPassword = hash(password, salt);
                     if (hashedPassword === dbString){
+                        // set the session
+                        req.session.auth = {userId: result.rows[0].id};
+                        // setting a cookie with a session id; same is mapped in the server to an object 'auth' which contains userid {auth: {userId}}
+                        
                         res.send('Credentials Correct!');
                     } else {
                         res.send(403).send('username/password is invalid');
@@ -181,6 +185,15 @@ app.post('/login', function(req, res){
         }
     )}
 );
+
+
+app.get('/check-login', function(req,res){
+   if(req.session && req.session.auth && req.session.auth.userId){
+       req.send('You are logged in:'+req.session.autho.userId.toString());
+       } else {
+           res.send('You are not logged in');
+       } 
+});
 
 app.get('/articles/:articleName', function(req, res){
     var articleName = req.params.articleName;
