@@ -173,7 +173,7 @@ app.post('/login', function(req, res){
                     var hashedPassword = hash(password, salt);
                     if (hashedPassword === dbString){
                         // set the session
-                        res.session.auth = {userId: result.rows[0].id};
+                        req.session.auth = {userId: result.rows[0].id};
                         // setting a cookie with a session id; same is mapped in the server to an object 'auth' which contains userid {auth: {userId}}
                         
                         res.send('Credentials Correct!');
@@ -188,8 +188,8 @@ app.post('/login', function(req, res){
 
 
 app.get('/check-login', function(req, res){
-   if(res.session && res.session.auth && res.session.auth.userId){
-       res.send('You are logged in:'+res.session.auth.userId.toString());
+   if(req.session && req.session.auth && req.session.auth.userId){
+       res.send('You are logged in: ' + req.session.auth.userId.toString());
        } else {
            res.send('You are not logged in');
        } 
