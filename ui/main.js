@@ -53,7 +53,8 @@ submit.onclick = function(){
 
 //code for login
 var submitl = document.getElementById('submit_login');
-submit.onclick = function(){
+console.log('submit clicked');
+submitl.onclick = function(){
     var request = new XMLHttpRequest();
     
     request.onreadystatechange = function(){
