@@ -2,11 +2,9 @@ console.log('Loaded!');
 
 //counter code
 var button = document.getElementById('counter');
-
 button.onclick = function (){
     // Create a request object
     var request = new XMLHttpRequest();
-    
     // capture the response and store it in a variable
     request.onreadystatechange = function(){
         if(request.readyState === XMLHttpRequest.DONE){
@@ -19,21 +17,18 @@ button.onclick = function (){
         }
         //False Action
     };
-    
-// Make the request
-request.open('GET','http://iravalvizhigal.imad.hasura-app.io/counter', true);
-request.send(null);
+    // Make the request
+    request.open('GET','http://iravalvizhigal.imad.hasura-app.io/counter', true);
+    request.send(null);
 };
 
 //code for server request (AJAX)
 var nameInput = document.getElementById('name');
-
 var submit = document.getElementById('submit_btn');
 submit.onclick = function(){
      // Create a request object
     var iname = nameInput.value;
     var request = new XMLHttpRequest();
-    
     // capture the response and store it in a variable
     request.onreadystatechange = function(){
         if(request.readyState === XMLHttpRequest.DONE){
@@ -55,6 +50,31 @@ submit.onclick = function(){
     request.open('GET','http://iravalvizhigal.imad.hasura-app.io/submit-name/?name=' + iname, true);
     request.send(null);
 };
+
+//code for login
+var submitl = document.getElementById('submit_login');
+submit.onclick = function(){
+    var request = new XMLHttpRequest();
+    
+    request.onreadystatechange = function(){
+        if(request.readyState === XMLHttpRequest.DONE){
+            if (request.status === 200) {
+                alert ('Login successful');
+            } else if (request.status === 403) {
+                alert ('username/password is incorrect');
+            } else if (request.status === 500) {
+                alert ('Something went wrong');
+            }
+        }
+    }
+    var usrnm = document.getElementById('username').value;
+    var pwd = document.getElementById('password').value;
+    console.log(usrnm);
+    console.log(pwd);
+    request.open('POST', 'http://iravalvizhigal.imad.hasura-app.io/login', true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.send(JSON.stringify({username: username, password: password}));
+    };
 
 /*
 // change text content
